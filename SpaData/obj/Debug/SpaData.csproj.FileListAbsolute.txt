@@ -1,0 +1,5 @@
+C:\VSCode\SPATechniques\SpaData\bin\Debug\SpaData.dll
+C:\VSCode\SPATechniques\SpaData\bin\Debug\SpaData.pdb
+C:\VSCode\SPATechniques\SpaData\obj\Debug\SpaData.dll
+C:\VSCode\SPATechniques\SpaData\obj\Debug\SpaData.pdb
+C:\VSCode\SPATechniques\SpaData\obj\Debug\SpaData.csprojResolveAssemblyReference.cache

@@ -1,0 +1,147 @@
+﻿@model SpaData.TrainingProductViewModel
+
+@{
+    ViewBag.Title = "Paul's Training Company";
+}
+
+@using (Html.BeginForm())
+{
+    <!-- Begin Hidden Fields Area-->
+    @Html.HiddenFor(m => m.EventCommand);
+    @Html.HiddenFor(m => m.Mode);
+    <!-- End Hidden Fields Area-->
+
+
+    <!-- Begin Search Area-->
+    if (Model.IsSearchAreaVisible)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h1 class="panel-title">Search for Products</h1>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SearchEntity.ProductName, "Product Name")
+                    @Html.TextBoxFor(m => m.SearchEntity.ProductName, "", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button id="btnSearch" class="btn btn-sm btn-primary" formnovalidate="formnovalidate" data-pdsa-action="search"><i class="glyphicon glyphicon-search"></i>&nbsp;Search</button>
+
+                <button id="btnReset" class="btn btn-sm btn-primary" formnovalidate="formnovalidate" data-pdsa-action="resetSearch">Reset</button>
+                <button id="btnAdd" class="btn btn-sm btn-success" data-pdsa-action="Add">Add</button>
+
+            </div>
+        </div>
+    }
+    <!-- End Search Area-->
+
+    // BEGIN MESSAGE AREA
+    <div class="row">
+        <div class="col-sm-12">
+            @if (!Model.IsValid)
+            {
+                <div class="alert alert-danger alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    @Html.ValidationSummary(false)
+                </div>
+            }
+        </div>
+    </div>
+
+
+    // END MESSAGE AREA
+
+
+    <!-- Begin Detail Area -->
+    if (Model.IsDetailAreaVisible)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h1 class="panel-title">
+                    Product Information
+                </h1>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Entity.ProductName, "Product Name")
+                    @Html.TextBoxFor(m => m.Entity.ProductName, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Entity.IntroductionDate, "Introduction Date")
+                    @Html.TextBoxFor(m => m.Entity.IntroductionDate, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Entity.Url, "URL")
+                    @Html.TextBoxFor(m => m.Entity.Url, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Entity.Price, "Price")
+                    @Html.TextBoxFor(m => m.Entity.Price, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button id="btnSave" class="btn btn-sm btn-primary" data-pdsa-action="save"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
+
+                        <button id="btnCancel" class="btn btn-sm btn-primary" formnovalidate="formnovalidate" data-pdsa-action="cancel">
+                            <i class="glyphicon glyphicon-remove-circle"></i>&nbsp;Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    <!-- End Detail Area -->
+
+
+    <!-- Begin List Area-->
+    if (Model.IsListAreaVisible)
+    {
+        <div class="table-responsive">
+            <table class="table table-condensed table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Introduction Date</th>
+                        <th>Url</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.IntroductionDate</td>
+                            <td>@item.Url</td>
+                            <td>@item.Price.ToString("c")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    <!-- End List Area-->
+
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("[data-pdsa-action]").on("click", function (e) {
+                e.preventDefault();
+                $("#EventCommand").val($(this).data("pdsa-action"));
+                $("form").submit();
+            });
+        });
+    </script>
+}
