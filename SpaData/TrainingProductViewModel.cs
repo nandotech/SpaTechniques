@@ -121,8 +121,7 @@ namespace SpaData
                     {
                         AddMode();
                     }
-                }
-            
+                }   
         }
     }
 }
