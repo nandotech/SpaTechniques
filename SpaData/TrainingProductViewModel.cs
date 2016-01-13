@@ -36,7 +36,7 @@ namespace SpaData
         private void Get()
         {
             TrainingProductManager mgr = new TrainingProductManager();
-            EventCommand = "Search";
+            Mode = "Search";
             Products = mgr.Get(SearchEntity);
         }
         private void Add()
@@ -57,9 +57,11 @@ namespace SpaData
             {
                 case "list":
                 case "search":
+                    ListMode();
                     Get();
                     break;
                 case "resetsearch":
+                    ListMode();
                     ResetSearch();
                     Get();
                     break;
@@ -100,6 +102,7 @@ namespace SpaData
         private void ResetSearch()
         {
             SearchEntity = new TrainingProduct();
+            Mode = "Search";
             
         }
         private void Save()
